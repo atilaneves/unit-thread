@@ -18,12 +18,12 @@ bool TestCase::doTest() {
 
 
 bool TestCase::verifyTrue(bool condition) {
-    return condition ? true : fail();
+    return condition || fail();
 }
 
 
 bool TestCase::verifyFalse(bool condition) {
-    return condition ? fail() : true;
+    return !condition || fail();
 }
 
 

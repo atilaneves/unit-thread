@@ -16,25 +16,25 @@ public:
 protected:
 
     template<typename T, typename U>
-    bool verifyEqual(const T t, const U u) { return t == u ? true : fail(); }
+    bool verifyEqual(const T t, const U u) { return t == u || fail(); }
 
     template<typename T, typename U>
-    bool verifyNotEqual(const T t, const U u) { return t != u ? true : fail(); }
+    bool verifyNotEqual(const T t, const U u) { return t != u || fail(); }
 
     template<typename T>
-    bool verifyNull(const T* t) { return t == nullptr ? true : fail(); }
+    bool verifyNull(const T* t) { return t == nullptr || fail(); }
 
     template<typename T>
-    bool verifyNotNull(const T* t) { return t != nullptr ? true : fail(); }
+    bool verifyNotNull(const T* t) { return t != nullptr || fail(); }
 
     template<typename C>
     bool verifyIn(const C& container, const typename C::value_type& obj) {
-        return std::find(container.cbegin(), container.cend(), obj) != container.end() ? true : fail(); 
+        return std::find(container.cbegin(), container.cend(), obj) != container.end() || fail();
     }
 
     template<typename C>
     bool verifyNotIn(const C& container, const typename C::value_type& obj) {
-        return std::find(container.cbegin(), container.cend(), obj) == container.cend() ? true : fail(); 
+        return std::find(container.cbegin(), container.cend(), obj) == container.cend() || fail();
     }
 
     bool verifyTrue(bool condition);
