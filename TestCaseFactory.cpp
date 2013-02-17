@@ -45,7 +45,7 @@ auto TestCaseFactory::createTests(const std::string& testPathToRun) const -> Tes
         if(!isToRun(testPathToRun, testPath)) continue;
             
         if(_pathToCreators.find(testPath) == _pathToCreators.end()) {
-            std::cout << "Could not create test case " << testPath <<
+            std::cerr << "Could not create test case " << testPath <<
                          " for test path " << testPath << std::endl;
             return TestCases();
         }

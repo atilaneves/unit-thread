@@ -35,20 +35,24 @@ double TestSuite::run(const std::vector<std::string>& pathsToRun) {
     std::chrono::high_resolution_clock clock;
     const auto start = clock.now();
 
-    std::vector<std::future<void>> futures;
+    std::vector<std::future<std::string>> futures;
     for(const auto& pathToRun: pathsToRun) {
         auto testCases = TestCaseFactory::getInstance().createTests(pathToRun);
         for(auto& testCase: testCases) {
-            std::cout << "Scheduling " << testCase->getPath() << std::endl;
             futures.emplace_back(std::async(_policy, [testCase, this]() {
-                        std::cout << "Running " << testCase->getPath() << std::endl;
-                        if(!testCase->doTest()) addFailure(testCase->getPath());
+                        bool success;
+                        std::string output;
+                        std::tie(success, output) = testCase->doTest();
+                        if(!success) addFailure(testCase->getPath());
+                        return testCase->getPath() + ":\n" + output;
                     }));
             _numTestsRun++;
         }
     }
 
-    for(auto& f: futures) f.wait(); //make sure all tasks finish
+    for(auto& f: futures) {
+        std::cout << f.get();
+    }
 
     std::cout << std::endl;               
     for(auto failure: _failures) {

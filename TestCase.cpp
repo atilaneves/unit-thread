@@ -1,7 +1,8 @@
 #include "TestCase.hpp"
+#include <iostream>
 
 TestCase::TestCase():
-    _failed(false) {
+    _output(""), _failed(false) {
 
 }
 
@@ -9,11 +10,11 @@ TestCase::~TestCase() {
 
 }
 
-bool TestCase::doTest() {
+auto TestCase::doTest() -> Tuple{
     setup();
     test();
     shutdown();
-    return !_failed;
+    return std::make_tuple(!_failed, _output.str());
 }
 
 

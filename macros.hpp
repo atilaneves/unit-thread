@@ -26,7 +26,7 @@
 #define checkEqual(value, expected) \
     { \
         if(!verifyEqual((value), (expected))) \
-            std::cout << "    " << __FILE__ << ":" << __LINE__ <<            \
+            _output << "    " << __FILE__ << ":" << __LINE__ << \
                 " Value " #value " is not the expected " #expected << std::endl; \
     }
 
@@ -34,7 +34,7 @@
 #define checkNotEqual(value, expected)    \
     { \
         if(!verifyNotEqual((value), (expected))) \
-            std::cout << "    " << __FILE__ << ":" << __LINE__ << \
+            _output << "    " << __FILE__ << ":" << __LINE__ << \
                 " Value " #value " is equal to the expected " #expected << std::endl; \
     }
 
@@ -42,7 +42,7 @@
 #define checkNull(value) \
     { \
         if(!verifyNull((value)))                        \
-            std::cout << "    " << __FILE__ << ":" << __LINE__ << \
+            _output << "    " << __FILE__ << ":" << __LINE__ << \
                       " Value " #value " is not null " << std::endl; \
     }
 
@@ -50,7 +50,7 @@
 #define checkNotNull(value) \
     { \
         if(!verifyNotNull((value))) \
-            std::cout << "    " << __FILE__ << ":" << __LINE__ << \
+            _output << "    " << __FILE__ << ":" << __LINE__ << \
                       " Value " #value " is null " << std::endl; \
     }
 
@@ -58,7 +58,7 @@
 #define checkIn(container, value) \
     { \
         if(!verifyIn((container), (value))) \
-            std::cout << "    " << __FILE__ << ":" << __LINE__ << \
+            _output << "    " << __FILE__ << ":" << __LINE__ << \
                 " Value " #value " not in container " << #container << std::endl; \
     }
 
@@ -66,7 +66,7 @@
 #define checkNotIn(container, value) \
     { \
         if(!verifyNotIn((container), (value))) \
-            std::cout << "    " << __FILE__ << ":" << __LINE__ << \
+            _output << "    " << __FILE__ << ":" << __LINE__ << \
                 " Value " #value " in container " << #container << std::endl; \
     }
 
@@ -74,7 +74,7 @@
 #define checkTrue(value) \
     { \
         if(!verifyTrue((value))) \
-            std::cout << "    " << __FILE__ << ":" << __LINE__ << \
+            _output << "    " << __FILE__ << ":" << __LINE__ << \
                 " Value " #value " is not true" << std::endl; \
     }
 
@@ -82,6 +82,6 @@
 #define checkFalse(value) \
     { \
         if(!verifyFalse((value))) \
-            std::cout << "    " << __FILE__ << ":" << __LINE__ << \
+            _output << "    " << __FILE__ << ":" << __LINE__ << \
                 " Value " #value " is not false" << std::endl; \
     }

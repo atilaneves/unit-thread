@@ -50,7 +50,7 @@ static std::tuple<int, std::launch> handleOptions(int argc, char* argv[]) {
 
         policy = vars.count("threaded") ? std::launch::async : std::launch::deferred;
     } catch(options::error&) {
-        std::cout << "Error parsing options" << std::endl;
+        std::cerr << "Error parsing options" << std::endl;
         std::cout << desc;
         return std::make_tuple(1, policy);
     }
@@ -83,7 +83,7 @@ int main(int argc, char* argv[]) {
     const auto elapsed = runTests(argc, argv, testSuite, firstTestIndex);
 
     if(!testSuite.getNumTestsRun()) {
-        std::cout << "Did not run any tests!!!\n";
+        std::cerr << "Did not run any tests!!!\n";
         return 1;
     }
 
@@ -92,7 +92,7 @@ int main(int argc, char* argv[]) {
                  testSuite.getNumFailures() << " failed.\n\n";
 
     if(testSuite.getNumFailures()) {
-        std::cout << "Unit tests failed!\n\n";
+        std::cerr << "Unit tests failed!\n\n";
         return 1; //oops
     }
 

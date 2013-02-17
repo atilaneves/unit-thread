@@ -4,16 +4,21 @@
 #include <functional>
 #include <algorithm>
 #include <iostream>
-
+#include <sstream>
+#include <tuple>
 
 class TestCase {
 public:
 
+    using Tuple = std::tuple<bool, std::string>;
+
     TestCase();
     virtual ~TestCase();
-    bool doTest();
+    Tuple doTest();
 
 protected:
+
+    std::ostringstream _output;
 
     template<typename T, typename U>
     bool verifyEqual(const T t, const U u) { return t == u || fail(); }
@@ -51,6 +56,5 @@ private:
     bool fail();
 };
 
-typedef std::function<TestCase*()> TestCaseCreator;
 
 #endif

@@ -7,6 +7,11 @@
 #include <memory>
 #include "TestCase.hpp"
 
+
+typedef std::function<TestCase*()> TestCaseCreator;
+template<class T> TestCase* testCaseCreator() { return new T; }
+
+
 class TestCaseFactory {
 public:
 
@@ -23,7 +28,7 @@ public:
         std::shared_ptr<TestCase> const _testCase;
         TestCaseWithPath(const std::string& p, TestCase* t):_path(p), _testCase(t) { }
         const std::string& getPath() const { return _path; }
-        bool doTest() { return _testCase->doTest(); }
+        TestCase::Tuple doTest() { return _testCase->doTest(); }
     };
 
 private:
@@ -36,8 +41,6 @@ private:
     TestCaseFactory(const TestCaseFactory&);
     TestCaseFactory& operator=(const TestCaseFactory&);
 };
-
-template<class T> TestCase* testCaseCreator() { return new T; }
 
 
 
