@@ -31,7 +31,7 @@ message("Release C++ flags are ${CMAKE_CXX_FLAGS_RELEASE}")
 message("Debug   C++ flags are ${CMAKE_CXX_FLAGS_DEBUG}")
 message("Build type is ${CMAKE_BUILD_TYPE}")
 
-include_directories(.)
+include_directories(lib)
 
 if(WIN32 AND ${CMAKE_BUILD_TYPE} STREQUAL "Release")
   set(CMAKE_EXE_LINKER_FLAGS "-mwindows")
@@ -39,10 +39,11 @@ endif()
 
 message("Installation would be to ${CMAKE_INSTALL_PREFIX}/${GRAV_BIN_DIR}")
 
-file(GLOB TEST_SRCS *.cpp)
-add_executable(test ${TEST_SRCS})
+file(GLOB LIB_SRCS lib/*.cpp)
+add_library(unit_thread ${LIB_SRCS})
+add_executable(test sample/test_main.cpp sample/unit_tests.cpp)
 
-target_link_libraries(test ${Boost_LIBRARIES})
+target_link_libraries(test unit_thread ${Boost_LIBRARIES})
 
 if(WIN32)
 else()
