@@ -18,7 +18,7 @@ SIMPLE_TEST(equals, Boolean,
 
 SIMPLE_TEST(equals, Numbers,
     TEST(
-        checkEqual(1, 2);
+        checkEqual(1, 1);
         checkEqual(3.0, 3.0);
         checkNotEqual(2, 3);
         checkNotEqual(2.0, 2.1);

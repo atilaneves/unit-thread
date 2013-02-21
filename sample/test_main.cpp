@@ -1,4 +1,5 @@
 #include "test_library.hpp"
+#include "console.hpp"
 #include <iostream>
 #include <tuple>
 #include <boost/program_options.hpp>
@@ -92,9 +93,9 @@ int main(int argc, char* argv[]) {
                  testSuite.getNumFailures() << " failed.\n\n";
 
     if(testSuite.getNumFailures()) {
-        std::cerr << "Unit tests failed!\n\n";
+        std::cerr << ESC_RED << "Unit tests failed!\n\n" << ESC_CANCEL;
         return 1; //oops
     }
 
-    std::cout << "\nOK!\n\n";
+    std::cout << ESC_GREEN << "\nOK!\n\n" << ESC_CANCEL;
 }
