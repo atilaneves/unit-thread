@@ -3,8 +3,8 @@
 #include <list>
 #include <thread>
 
-SIMPLE_TEST(equals, Boolean,
-    TEST(
+struct Boolean: public TestCase {
+    virtual void test() {
         checkTrue(true);
         checkFalse(false);
 
@@ -13,26 +13,31 @@ SIMPLE_TEST(equals, Boolean,
         checkTrue(2 < 3);
         checkFalse(2 > 3);
         checkFalse(3 >= 4);
-    )
-)
+    }
+};
+REGISTER_TEST(equals, Boolean)
 
-SIMPLE_TEST(equals, Numbers,
-    TEST(
+
+struct Numbers: public TestCase {
+    virtual void test() {
         checkEqual(1, 1);
         checkEqual(3.0, 3.0);
         checkNotEqual(2, 3);
         checkNotEqual(2.0, 2.1);
-    )
-)
+    }
+};    
+REGISTER_TEST(equals, Numbers)
 
 
-SIMPLE_TEST(equals, Strings,
-    TEST(
+struct Strings: public TestCase {
+    virtual void test() {
         checkEqual(std::string("bar"), std::string("bar"));
         checkEqual("baz", "baz");
         checkNotEqual("foo", "barr");
-    )
-)
+    }
+};
+REGISTER_TEST(equals, Strings)
+
 
 struct TestObject {
     const int _int;
@@ -41,26 +46,29 @@ struct TestObject {
     bool operator==(const TestObject& rhs) const { return _int == rhs._int && _string == rhs._string; }
     bool operator!=(const TestObject& rhs) const { return !(*this == rhs); }
 };
-
-SIMPLE_TEST(equals, Objects,
-    TEST(
+struct Objects: public TestCase {
+    virtual void test() {
         checkEqual(TestObject(1, "foo"), TestObject(1, "foo"));
         checkNotEqual(TestObject(1, "foo"), TestObject(2, "foo"));
         checkNotEqual(TestObject(1, "foo"), TestObject(1, "bar"));
-    )
-)
+    }
+};
+REGISTER_TEST(equals, Objects)
 
-SIMPLE_TEST(standalone, Null,
-    TEST(
+
+struct Null: public TestCase {
+    virtual void test() {
         const TestObject* const nullObj = nullptr;
         checkNull(nullObj);
         const TestObject obj(7, "superman");
         checkNotNull(&obj);
-    )
-)
+    }
+};
+REGISTER_TEST(standalone, Null)
 
-SIMPLE_TEST(standalone, Containers,
-    TEST(
+
+struct Containers: public TestCase {
+    virtual void test() {
         std::vector<int> primes{3, 5, 7, 11, 13};
         checkIn(primes, 3);
         checkNotIn(primes, 2);
@@ -78,8 +86,10 @@ SIMPLE_TEST(standalone, Containers,
         checkIn(strings, "foo");
         checkNotIn(strings, "baz");
         checkIn(strings, "bar");
-    )
-)
+    }
+};
+REGISTER_TEST(standalone, Containers)
+
 
 class TakesAWhile: public TestCase {
     virtual void test() {

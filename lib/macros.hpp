@@ -8,19 +8,8 @@
 
 #define REGISTER_TEST(path, klass) \
     namespace { \
-        bool result_##klass = TestCaseFactory::getInstance().registerTest((path), testCaseCreator<klass>); \
+        bool result_##klass = TestCaseFactory::getInstance().registerTest((#path"/"#klass), testCaseCreator<klass>); \
     }
-
-
-#define SIMPLE_TEST(path, klass, code) \
-    namespace { \
-        struct klass: public TestCase { \
-            virtual void test() { \
-                code \
-            } \
-        }; \
-    } \
-    REGISTER_TEST(#path"/"#klass, klass)
 
 
 #define checkEqual(value, expected) \
