@@ -16,7 +16,8 @@
     { \
         if(!verifyEqual((value), (expected))) \
             _output << "    " << __FILE__ << ":" << __LINE__ << \
-                " Value " #value " is not the expected " #expected << std::endl; \
+                " Value '" #value "' (" << (value) << \
+                ") is not the expected '" #expected "' (" << (expected) << ")" << std::endl; \
     }
 
 
@@ -24,7 +25,8 @@
     { \
         if(!verifyNotEqual((value), (expected))) \
             _output << "    " << __FILE__ << ":" << __LINE__ << \
-                " Value " #value " is equal to the expected " #expected << std::endl; \
+                " Value " #value "' (" << (value) << \
+                ") is equal to the expected '" #expected "' (" << (expected) << ")" <<std::endl; \
     }
 
 

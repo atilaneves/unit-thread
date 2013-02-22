@@ -3,6 +3,7 @@
 #include <list>
 #include <thread>
 
+
 struct Boolean: public TestCase {
     virtual void test() {
         checkTrue(true);
@@ -45,7 +46,14 @@ struct TestObject {
     TestObject(int i, const std::string& s):_int(i), _string(s) { }
     bool operator==(const TestObject& rhs) const { return _int == rhs._int && _string == rhs._string; }
     bool operator!=(const TestObject& rhs) const { return !(*this == rhs); }
+    friend std::ostream& operator<<(std::ostream& ostream, const TestObject& obj);
 };
+
+std::ostream& operator<<(std::ostream& ostream, const TestObject& obj) {
+    ostream << "i: " << obj._int << ", s: " << obj._string;
+    return ostream;
+}
+
 struct Objects: public TestCase {
     virtual void test() {
         checkEqual(TestObject(1, "foo"), TestObject(1, "foo"));
