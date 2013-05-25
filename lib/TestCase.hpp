@@ -21,13 +21,13 @@ protected:
 
     std::ostringstream _output;
 
-    template<typename T, typename U>
+    template<typename T, typename U,
+             typename V=typename std::enable_if<!HasBeginEnd<T>::value || !HasBeginEnd<U>::value>::type>
     bool verifyEqual(const T t, const U u) { return t == u || fail(); }
 
     template<typename C1, typename C2,
-             //         typename std::enable_if<true>::type>
-             typename std::enable_if<HasBeginEnd<C1>::value && HasBeginEnd<C2>::value>::type>
-    bool verifyEqual(const C1& c1, const C2& c2, const C1& c12) {
+             typename V=typename std::enable_if<HasBeginEnd<C1>::value && HasBeginEnd<C2>::value>::type>
+    bool verifyEqual(const C1& c1, const C2& c2) {
         return std::equal(std::begin(c1), std::end(c1), std::begin(c2));
     }
 
