@@ -1,5 +1,5 @@
-#ifndef TEST_LIBRARY_HPP_
-#define TEST_LIBRARY_HPP_
+#ifndef UNIT_THREAD_HPP_
+#define UNIT_THREAD_HPP_
 
 #include "TestCase.hpp"
 #include "TestSuite.hpp"

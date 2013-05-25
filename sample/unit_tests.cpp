@@ -1,4 +1,4 @@
-#include "test_library.hpp"
+#include "unit_thread.hpp"
 #include <string>
 #include <list>
 #include <thread>
@@ -26,7 +26,7 @@ struct Numbers: public TestCase {
         checkNotEqual(2, 3);
         checkNotEqual(2.0, 2.1);
     }
-};    
+};
 REGISTER_TEST(equals, Numbers)
 
 
@@ -102,7 +102,7 @@ REGISTER_TEST(standalone, Containers)
 class TakesAWhile: public TestCase {
     virtual void test() {
         checkEqual(1, 1);
-        std::this_thread::sleep_for(std::chrono::seconds(1));        
+        std::this_thread::sleep_for(std::chrono::seconds(1));
         checkNotEqual(1, 2);
     }
 };
