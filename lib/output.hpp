@@ -3,12 +3,29 @@
 
 #include <ostream>
 #include <vector>
+#include <string>
+#include <sstream>
+
+namespace unit_thread_output {
+    template<typename T>
+    std::string convert(const T& t) {
+        return toString(t);
+    }
+
+    template<>
+    std::string convert(const uint8_t& t);
+}
+
+
 
 template<typename T>
 std::ostream & operator<<(std::ostream &os, const std::vector<T>& vector) {
     os << "{";
+    bool first = true;
     for(const auto& t: vector) {
-        os << t << ", ";
+        if(!first) os << ", ";
+        first = false;
+        os << unit_thread_output::convert(t);
     }
     os << "}";
     return os;
