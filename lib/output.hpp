@@ -9,7 +9,7 @@
 namespace unit_thread_output {
     template<typename T>
     std::string convert(const T& t) {
-        return toString(t);
+        return std::to_string(t);
     }
 
     template<>
