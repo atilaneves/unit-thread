@@ -39,24 +39,20 @@ endif()
 
 message("Installation would be to ${CMAKE_INSTALL_PREFIX}/${GRAV_BIN_DIR}")
 
+#line below is for other projects to reuse
 file(GLOB LIB_SRCS lib/*.cpp)
 add_library(unit_thread ${LIB_SRCS})
-add_executable(test sample/test_main.cpp sample/unit_tests.cpp)
+add_executable(test_unit_thread sample/test_main.cpp sample/unit_tests.cpp)
 
-target_link_libraries(test unit_thread ${Boost_LIBRARIES})
+target_link_libraries(test_unit_thread unit_thread ${Boost_LIBRARIES})
 
 if(WIN32)
 else()
-    target_link_libraries(test pthread)
+    target_link_libraries(test_unit_thread pthread)
 endif()
 
 
 set(CPACK_PACKAGE_VERSION_MAJOR 0)
 set(CPACK_PACKAGE_VERSION_MINOR 1)
 set(CPACK_PACKAGE_VERSION_PATCH 0)
-#set(CPACK_PACKAGE_DESCRIPTION_FILE ${CMAKE_SOURCE_DIR}/README.txt)
-#set(CPACK_PACKAGE_EXECUTABLES gravastar;gravastar)
-#set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/COPYING.txt")
-#set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README.txt")
 set(CPACK_PACKAGE_NAME unit-thread)
-
