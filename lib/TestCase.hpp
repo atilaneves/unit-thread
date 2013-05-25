@@ -28,7 +28,7 @@ protected:
     template<typename C1, typename C2,
              typename V=typename std::enable_if<HasBeginEnd<C1>::value && HasBeginEnd<C2>::value>::type>
     bool verifyEqual(const C1& c1, const C2& c2) {
-        return std::equal(std::begin(c1), std::end(c1), std::begin(c2));
+        return std::equal(std::begin(c1), std::end(c1), std::begin(c2)) || fail();
     }
 
     template<typename T, typename U>
