@@ -2,6 +2,7 @@
 #define MACROS_HPP_
 #endif
 
+#include "output.hpp"
 
 #define TEST(...) __VA_ARGS__
 

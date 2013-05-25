@@ -2,7 +2,7 @@
 #include <string>
 #include <list>
 #include <thread>
-
+#include <cassert>
 
 struct Boolean: public TestCase {
     virtual void test() {
@@ -75,7 +75,7 @@ struct Null: public TestCase {
 REGISTER_TEST(standalone, Null)
 
 
-struct Containers: public TestCase {
+struct In: public TestCase {
     virtual void test() {
         std::vector<int> primes{3, 5, 7, 11, 13};
         checkIn(primes, 3);
@@ -96,7 +96,30 @@ struct Containers: public TestCase {
         checkIn(strings, "bar");
     }
 };
-REGISTER_TEST(standalone, Containers)
+REGISTER_TEST(containers, In)
+
+struct VectorEquals: public TestCase {
+    virtual void test() override {
+        std::vector<int> nums1{1, 2, 5};
+        std::vector<int> nums2{1, 2, 5};
+        std::vector<int> nums3{1, 4, 5};
+        checkEqual(nums1, nums2);
+        checkEqual(nums2, nums1);
+        checkNotEqual(nums1, nums3);
+        checkNotEqual(nums2, nums3);
+        checkNotEqual(nums3, nums1);
+        checkNotEqual(nums3, nums2);
+    }
+};
+REGISTER_TEST(containers, VectorEquals)
+
+struct BeginEnd: public TestCase {
+    virtual void test() override {
+        checkTrue(HasBeginEnd<std::vector<int>>::value);
+        checkFalse(HasBeginEnd<int>::value);
+    }
+};
+REGISTER_TEST(traits, BeginEnd)
 
 
 class TakesAWhile: public TestCase {
