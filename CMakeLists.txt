@@ -42,13 +42,16 @@ message("Installation would be to ${CMAKE_INSTALL_PREFIX}/${GRAV_BIN_DIR}")
 #line below is for other projects to reuse
 file(GLOB LIB_SRCS lib/*.cpp)
 add_library(unit_thread ${LIB_SRCS})
-add_executable(example_pass example/example_pass.cpp example/pass_tests.cpp)
+add_executable(example_pass example/example_main.cpp example/pass_tests.cpp)
+add_executable(example_fail example/example_main.cpp example/fail_tests.cpp)
 
 target_link_libraries(example_pass unit_thread ${Boost_LIBRARIES})
+target_link_libraries(example_fail unit_thread ${Boost_LIBRARIES})
 
 if(WIN32)
 else()
     target_link_libraries(example_pass pthread)
+    target_link_libraries(example_fail pthread)
 endif()
 
 

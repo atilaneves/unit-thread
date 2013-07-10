@@ -89,7 +89,7 @@ int runTests(int argc, char* argv[]) {
         return 1;
     }
 
-    std::cout << "Time taken: " << elapsed << " seconds " << std::endl;
+    std::cout << "\nTime taken: " << elapsed << " seconds " << std::endl;
     std::cout << testSuite.getNumTestsRun() << " test(s) run, " <<
                  testSuite.getNumFailures() << " failed.\n\n";
 
