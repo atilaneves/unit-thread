@@ -2,9 +2,9 @@
 #define CONSOLE_HPP_
 
 #    ifndef WIN32
-#        define ESC_GREEN "\033[1;32;40m"
-#        define ESC_RED "\033[1;31;40m"
-#        define ESC_CANCEL "\033[0m"
+#        define ESC_GREEN "\033[32;1m"
+#        define ESC_RED "\033[31;1m"
+#        define ESC_CANCEL "\033[0;;m"
 #    else
 #        define ESC_GREEN ""
 #        define ESC_RED ""
@@ -12,4 +12,3 @@
 #    endif
 
 #endif
-

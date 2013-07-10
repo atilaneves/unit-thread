@@ -1,3 +1,4 @@
+#include "test_runner.hpp"
 #include "unit_thread.hpp"
 #include "console.hpp"
 #include <iostream>
@@ -71,7 +72,7 @@ static double runTests(int argc, char *argv[], TestSuite& testSuite, int firstTe
     return argc > firstTestIndex ? testSuite.run(getTestsToRun(argc, argv, firstTestIndex)) : testSuite.run();
 }
 
-int main(int argc, char* argv[]) {
+int runTests(int argc, char* argv[]) {
     const auto optionTuple = handleOptions(argc, argv);
     const auto rc = std::get<0>(optionTuple);
     if(rc != CARRY_ON) {
@@ -98,4 +99,5 @@ int main(int argc, char* argv[]) {
     }
 
     std::cout << ESC_GREEN << "\nOK!\n\n" << ESC_CANCEL;
+    return 0;
 }
