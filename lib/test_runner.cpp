@@ -14,8 +14,8 @@ static options::options_description getOptionsDesc() {
                                       "(each must either be a full testcase path or end with '/'");
     desc.add_options()
         ("help,h", "produce help message")
-        ("show,s", "show avaiable test cases")
-        ("threaded,t", "run in multiple threads");
+        ("list,l", "list avaiable test cases")
+        ("single,s", "run in a single thread");
     return desc;
 }
 
@@ -41,16 +41,17 @@ static std::tuple<int, std::launch> handleOptions(int argc, char* argv[]) {
     std::launch policy = std::launch::deferred;
     try {
         const auto vars = getOptVars(argc, argv, desc);
+
         if(vars.count("help")) {
             std::cout << desc;
             return std::make_tuple(0, policy);
         }
-        if(vars.count("show")) {
+        if(vars.count("list")) {
             printPaths();
             return std::make_tuple(0, policy);
         }
 
-        policy = vars.count("threaded") ? std::launch::async : std::launch::deferred;
+        policy = vars.count("single") ? std::launch::deferred : std::launch::async;
     } catch(options::error&) {
         std::cerr << "Error parsing options" << std::endl;
         std::cout << desc;
@@ -80,7 +81,7 @@ int runTests(int argc, char* argv[]) {
     }
 
     const auto policy = std::get<1>(optionTuple);
-    const int firstTestIndex = policy == std::launch::async ? 2 : 1; //option means args further down
+    const int firstTestIndex = policy == std::launch::deferred ? 2 : 1; //option means args further down
     TestSuite testSuite(policy);
     const auto elapsed = runTests(argc, argv, testSuite, firstTestIndex);
 

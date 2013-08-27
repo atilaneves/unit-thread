@@ -5,7 +5,7 @@
 #include <cassert>
 
 struct Boolean: public TestCase {
-    virtual void test() {
+    virtual void test() override {
         checkTrue(true);
         checkFalse(false);
 
@@ -20,7 +20,7 @@ REGISTER_TEST(equals, Boolean)
 
 
 struct Numbers: public TestCase {
-    virtual void test() {
+    virtual void test() override {
         checkEqual(1, 1);
         checkEqual(3.0, 3.0);
         checkNotEqual(2, 3);
@@ -31,7 +31,7 @@ REGISTER_TEST(equals, Numbers)
 
 
 struct Strings: public TestCase {
-    virtual void test() {
+    virtual void test() override {
         checkEqual(std::string("bar"), std::string("bar"));
         checkEqual("baz", "baz");
         checkNotEqual("foo", "barr");
@@ -55,7 +55,7 @@ std::ostream& operator<<(std::ostream& ostream, const TestObject& obj) {
 }
 
 struct Objects: public TestCase {
-    virtual void test() {
+    virtual void test() override {
         checkEqual(TestObject(1, "foo"), TestObject(1, "foo"));
         checkNotEqual(TestObject(1, "foo"), TestObject(2, "foo"));
         checkNotEqual(TestObject(1, "foo"), TestObject(1, "bar"));
@@ -65,7 +65,7 @@ REGISTER_TEST(equals, Objects)
 
 
 struct Null: public TestCase {
-    virtual void test() {
+    virtual void test() override {
         const TestObject* const nullObj = nullptr;
         checkNull(nullObj);
         const TestObject obj(7, "superman");
@@ -76,7 +76,7 @@ REGISTER_TEST(standalone, Null)
 
 
 struct In: public TestCase {
-    virtual void test() {
+    virtual void test() override {
         std::vector<int> primes{3, 5, 7, 11, 13};
         checkIn(primes, 3);
         checkNotIn(primes, 2);
@@ -132,7 +132,7 @@ class TakesAWhile: public TestCase {
 
 namespace {
     bool runSlowTests() {
-        for(int i = 0; i < 10; ++i) {
+        for(int i = 0; i < 4; ++i) {
             TestCaseFactory::getInstance().registerTest("while/" + std::to_string(i),
                                                         testCaseCreator<TakesAWhile>);
         }
