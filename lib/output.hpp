@@ -14,6 +14,9 @@ namespace unit_thread_output {
 
     template<>
     std::string convert(const uint8_t& t);
+
+    template<>
+    std::string convert(const std::string& s);
 }
 
 
