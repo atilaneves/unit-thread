@@ -35,6 +35,8 @@ struct Strings: public TestCase {
         checkEqual(std::string("bar"), std::string("bar"));
         checkEqual("baz", "baz");
         checkNotEqual("foo", "barr");
+        checkEqual("foo", std::string("foo"));
+        checkEqual(std::string("foo"), "foo");
     }
 };
 REGISTER_TEST(equals, Strings)
