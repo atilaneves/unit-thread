@@ -124,6 +124,7 @@ REGISTER_TEST(traits, BeginEnd)
 struct DirTest: public TestCase {
     virtual void test() override {
         checkTrue(true);
+        checkNull(nullptr);
     }
 };
 REGISTER_TEST(parent/child/grandchild, DirTest)

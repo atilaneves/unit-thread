@@ -35,10 +35,10 @@ protected:
     bool verifyNotEqual(const T t, const U u) { return t != u || fail(); }
 
     template<typename T>
-    bool verifyNull(const T* t) { return t == nullptr || fail(); }
+    bool verifyNull(const T t) { return t == nullptr || fail(); }
 
     template<typename T>
-    bool verifyNotNull(const T* t) { return t != nullptr || fail(); }
+    bool verifyNotNull(const T t) { return t != nullptr || fail(); }
 
     template<typename C>
     bool verifyIn(const C& container, const typename C::value_type& obj) {

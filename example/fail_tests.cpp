@@ -70,6 +70,7 @@ struct Null: public TestCase {
         checkNull(nullObj);
         const TestObject obj(7, "superman");
         checkNull(&obj);
+        checkNotNull(nullptr);
     }
 };
 REGISTER_TEST(standalone, Null)
