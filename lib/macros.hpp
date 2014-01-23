@@ -19,6 +19,12 @@
     } \
     void klass::test()
 
+#define UTCHILD(path, klass, parent) \
+        class klass; \
+        REGISTER_TEST(path, klass) \
+        class klass: public parent
+
+#define UTCLASS(path, klass) UTCHILD(path, klass, TestCase)
 
 
 #define checkEqual(value, expected) \
