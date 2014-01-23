@@ -121,6 +121,13 @@ struct BeginEnd: public TestCase {
 };
 REGISTER_TEST(traits, BeginEnd)
 
+struct DirTest: public TestCase {
+    virtual void test() override {
+        checkTrue(true);
+    }
+};
+REGISTER_TEST(parent/child/grandchild, DirTest)
+
 
 class TakesAWhile: public TestCase {
     virtual void test() {
