@@ -4,13 +4,21 @@
 
 #include "output.hpp"
 
-#define TEST(...) __VA_ARGS__
-
 
 #define REGISTER_TEST(path, klass) \
     namespace { \
         bool result_##klass = TestCaseFactory::getInstance().registerTest((#path"/"#klass), testCaseCreator<klass>); \
     }
+
+#define UTEST(path, klass) \
+    namespace { \
+        struct klass: public TestCase { \
+            virtual void test() override; \
+        }; \
+        REGISTER_TEST(path, klass) \
+    } \
+    void klass::test()
+
 
 
 #define checkEqual(value, expected) \

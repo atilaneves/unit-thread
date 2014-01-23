@@ -129,6 +129,11 @@ struct DirTest: public TestCase {
 REGISTER_TEST(parent/child/grandchild, DirTest)
 
 
+UTEST(macro/function, test1) {
+    checkEqual(1 + 3, 4);
+}
+
+
 class TakesAWhile: public TestCase {
     virtual void test() {
         checkEqual(1, 1);
