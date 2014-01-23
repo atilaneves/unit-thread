@@ -95,7 +95,7 @@ int runTests(int argc, char* argv[]) {
                  testSuite.getNumFailures() << " failed.\n\n";
 
     if(testSuite.getNumFailures()) {
-        std::cerr << ESC_RED << "Unit tests failed!\n\n" << ESC_CANCEL;
+        std::cerr << ESC_RED << "Unit tests failed!" << ESC_CANCEL << "\n\n";
         return 1; //oops
     }
 
