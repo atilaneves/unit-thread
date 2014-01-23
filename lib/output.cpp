@@ -7,4 +7,9 @@ namespace unit_thread_output {
         stream << "0x" << std::hex << static_cast<int>(t);
         return stream.str();
     }
+
+    template<>
+    std::string convert(const std::string& s) {
+        return s;
+    }
 }
