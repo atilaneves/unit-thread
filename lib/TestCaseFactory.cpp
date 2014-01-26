@@ -9,15 +9,15 @@ TestCaseFactory& TestCaseFactory::getInstance() {
 }
 
 
-bool TestCaseFactory::registerTest(const std::string& path, const TestCaseCreator& creator) {
-    return _pathToCreators.insert(std::make_pair(path, creator)).second;
+bool TestCaseFactory::registerTest(std::string path, TestCaseCreator creator, bool hidden) {
+    return _pathToTestInfo.insert(std::make_pair(path, TestInfo(creator, hidden))).second;
 }
 
 
-const std::vector<std::string> TestCaseFactory::getPaths() const {
+const std::vector<std::string> TestCaseFactory::getPaths(bool listAll) const {
     std::vector<std::string> paths;
-    for(const auto& pathToCreator: _pathToCreators) {
-        paths.emplace_back(pathToCreator.first);
+    for(const auto& pathToInfo: _pathToTestInfo) {
+        if(!pathToInfo.second.hidden || listAll) paths.emplace_back(pathToInfo.first);
     }
     return paths;
 }
@@ -39,15 +39,15 @@ static bool isToRun(const std::string& testPathToRun, const std::string& testPat
 auto TestCaseFactory::createTests(const std::string& testPathToRun) const -> TestCases {
     TestCases testCases;
 
-    for(const auto& pathToCreator: _pathToCreators) {
+    for(const auto& pathToCreator: _pathToTestInfo) {
         const auto& testPath = pathToCreator.first;
 
         if(!isToRun(testPathToRun, testPath)) continue;
-            
-        if(_pathToCreators.find(testPath) == _pathToCreators.end()) {
+
+        if(_pathToTestInfo.find(testPath) == _pathToTestInfo.end()) {
             std::cerr << "Could not create test case " << testPath <<
                          " for test path " << testPath << std::endl;
-            return TestCases();
+            return TestCases{};
         }
 
         testCases.emplace_back(std::make_shared<TestCaseWithPath>(testPath, createTest(testPath)));
@@ -58,5 +58,5 @@ auto TestCaseFactory::createTests(const std::string& testPathToRun) const -> Tes
 
 
 TestCase* TestCaseFactory::createTest(const std::string& path) const {
-    return _pathToCreators.at(path)();
+    return _pathToTestInfo.at(path).creator();
 }

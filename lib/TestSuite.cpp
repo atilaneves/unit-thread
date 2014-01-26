@@ -6,7 +6,7 @@
 
 
 TestSuite::TestSuite(std::launch policy):
-    _policy(policy), _numTestsRun() { 
+    _policy(policy), _numTestsRun() {
 }
 
 
@@ -24,8 +24,9 @@ static double getElapsedSeconds(CLOCK clock, const START start) {
 
 
 double TestSuite::run() {
-    const auto paths = TestCaseFactory::getInstance().getPaths();
-    std::cout << "Running all " << paths.size() << " tests" << std::endl; 
+    const bool listAll = false; //leave hidden out
+    const auto paths = TestCaseFactory::getInstance().getPaths(listAll);
+    std::cout << "Running all " << paths.size() << " tests" << std::endl;
     return run(paths);
 }
 
@@ -54,9 +55,9 @@ double TestSuite::run(const std::vector<std::string>& pathsToRun) {
         std::cout << f.get();
     }
 
-    std::cout << std::endl;               
+    std::cout << std::endl;
     for(auto failure: _failures) {
-        std::cout << "Test " << failure << " failed." << std::endl;        
+        std::cout << "Test " << failure << " failed." << std::endl;
     }
 
     return getElapsedSeconds(clock, start);

@@ -41,6 +41,17 @@ struct Strings: public TestCase {
 };
 REGISTER_TEST(equals, Strings)
 
+struct HiddenTestClass: public TestCase {
+    virtual void test() override {
+        checkEqual(3, 1 + 2);
+    }
+};
+HIDDEN_TEST(hidden, HiddenTestClass)
+
+
+UTHIDDEN(hidden, hiddenTestFunction) {
+    checkEqual(5, 2 + 3);
+}
 
 struct TestObject {
     const int _int;

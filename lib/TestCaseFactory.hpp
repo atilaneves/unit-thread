@@ -11,6 +11,12 @@
 typedef std::function<TestCase*()> TestCaseCreator;
 template<class T> TestCase* testCaseCreator() { return new T; }
 
+struct TestInfo {
+    TestCaseCreator creator;
+    bool hidden;
+    TestInfo(TestCaseCreator c, bool h):creator{c}, hidden{h} {}
+};
+
 
 class TestCaseFactory {
 public:
@@ -19,8 +25,8 @@ public:
     using TestCases = std::vector<std::shared_ptr<TestCaseWithPath>>;
 
     static TestCaseFactory& getInstance();
-    bool registerTest(const std::string& path, const TestCaseCreator& creator);
-    const std::vector<std::string> getPaths() const;
+    bool registerTest(std::string path, TestCaseCreator creator, bool hidden = false);
+    const std::vector<std::string> getPaths(bool listAll = true) const;
     TestCases createTests(const std::string& testPathToRun) const;
 
     struct TestCaseWithPath {
@@ -33,7 +39,7 @@ public:
 
 private:
 
-    std::map<std::string, TestCaseCreator> _pathToCreators;
+    std::map<std::string, TestInfo> _pathToTestInfo;
 
     TestCase* createTest(const std::string& path) const;
 

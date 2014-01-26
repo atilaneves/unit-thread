@@ -7,8 +7,17 @@
 
 #define REGISTER_TEST(path, klass) \
     namespace { \
-        bool result_##klass = TestCaseFactory::getInstance().registerTest((#path"/"#klass), testCaseCreator<klass>); \
+        bool result_##klass = TestCaseFactory::getInstance().registerTest((#path"/"#klass), \
+                                                                          testCaseCreator<klass>); \
     }
+
+#define HIDDEN_TEST(path, klass) \
+    namespace { \
+        bool result_##klass = TestCaseFactory::getInstance().registerTest((#path"/"#klass), \
+                                                                          testCaseCreator<klass>, \
+                                                                          true); \
+    }
+
 
 #define UTEST(path, klass) \
     namespace { \
@@ -19,13 +28,30 @@
     } \
     void klass::test()
 
+
+#define UTHIDDEN(path, klass) \
+    namespace { \
+        struct klass: public TestCase { \
+            virtual void test() override; \
+        }; \
+        HIDDEN_TEST(path, klass) \
+    } \
+    void klass::test()
+
+
 #define UTCHILD(path, klass, parent) \
         class klass; \
         REGISTER_TEST(path, klass) \
         class klass: public parent
 
-#define UTCLASS(path, klass) UTCHILD(path, klass, TestCase)
+#define UTHIDDEN_CHILD(path, klass, parent) \
+        class klass; \
+        HIDDEN_TEST(path, klass) \
+        class klass: public parent
 
+
+#define UTCLASS(path, klass) UTCHILD(path, klass, TestCase)
+#define UTHIDDEN_CLASS(path, klass) UTHIDDEN(path, klass, TestCase)
 
 #define checkEqual(value, expected) \
     { \
