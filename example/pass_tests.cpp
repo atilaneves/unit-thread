@@ -19,27 +19,21 @@ struct Boolean: public TestCase {
 REGISTER_TEST(equals, Boolean)
 
 
-struct Numbers: public TestCase {
-    virtual void test() override {
-        checkEqual(1, 1);
-        checkEqual(3.0, 3.0);
-        checkNotEqual(2, 3);
-        checkNotEqual(2.0, 2.1);
-    }
-};
-REGISTER_TEST(equals, Numbers)
+UTEST(equals, Numbers) {
+    checkEqual(1, 1);
+    checkEqual(3.0, 3.0);
+    checkNotEqual(2, 3);
+    checkNotEqual(2.0, 2.1);
+}
 
 
-struct Strings: public TestCase {
-    virtual void test() override {
-        checkEqual(std::string("bar"), std::string("bar"));
-        checkEqual("baz", "baz");
-        checkNotEqual("foo", "barr");
-        checkEqual("foo", std::string("foo"));
-        checkEqual(std::string("foo"), "foo");
-    }
-};
-REGISTER_TEST(equals, Strings)
+UTEST(equals, Strings) {
+    checkEqual(std::string("bar"), std::string("bar"));
+    checkEqual("baz", "baz");
+    checkNotEqual("foo", "barr");
+    checkEqual("foo", std::string("foo"));
+    checkEqual(std::string("foo"), "foo");
+}
 
 struct HiddenTestClass: public TestCase {
     virtual void test() override {
