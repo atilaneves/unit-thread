@@ -51,7 +51,7 @@
 
 
 #define UTCLASS(path, klass) UTCHILD(path, klass, TestCase)
-#define UTHIDDEN_CLASS(path, klass) UTHIDDEN(path, klass, TestCase)
+#define UTHIDDEN_CLASS(path, klass) UTHIDDEN_CHILD(path, klass, TestCase)
 
 #define checkEqual(value, expected) \
     { \
