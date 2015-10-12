@@ -16,8 +16,8 @@ if(NOT CMAKE_BUILD_TYPE)
       FORCE)
 endif(NOT CMAKE_BUILD_TYPE)
 
-set(GRAV_FLAGS_DEBUG "-Wall -Wextra -Werror -g -pg -fno-inline")
-set(GRAV_FLAGS_RELEASE "-Wall -Wextra -Werror  -O2")
+set(GRAV_FLAGS_DEBUG "-Wall -Wextra -Werror -Wno-unused-variable -Wno-sign-compare -g -pg -fno-inline")
+set(GRAV_FLAGS_RELEASE "-Wall -Wextra -Werror  -Wno-unused-variable -Wno-sign-compare -O2")
 
 set(CMAKE_C_FLAGS_DEBUG ${GRAV_FLAGS_DEBUG})
 set(CMAKE_CXX_FLAGS_DEBUG "${GRAV_FLAGS_DEBUG} -std=c++11")
